@@ -1,0 +1,9 @@
+name: Casino
+version: '${project.version}'
+main: dk.banannus.Casino
+api-version: 1.19
+authors: [ Banannus ]
+description: Custom Casino plugin
+commands:
+  ca:
+    description: Admin command til brug af crates
