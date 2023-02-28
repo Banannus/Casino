@@ -50,12 +50,12 @@ public class casinoAdmin implements CommandExecutor {
 				success = false;
 			}
 			if (success)
-				sender.sendMessage(Chat.colored(Casino.configYML.getString("casino.prefix") + "&aReloadede configen."));
+				sender.sendMessage(Chat.colored(Casino.configYML.getString("casino.prefix") + "&aConfig reloaded."));
 			if (!success)
 				sender.sendMessage(Chat.colored(Casino.configYML.getString("casino.prefix") + "&cDer opstod en fejl. Tjek din console."));
 		}
 
-		if(args[0].equalsIgnoreCase("set") || args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("list")){
+		if(args[0].equalsIgnoreCase("set") || args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("list")) {
 			if (args[0].equalsIgnoreCase("set")) {
 				if (args.length == 1) {
 					player.sendMessage(Casino.configYML.getString("casino.prefix"));
@@ -77,8 +77,7 @@ public class casinoAdmin implements CommandExecutor {
 			}
 
 			List<Map<?, ?>> crates = Casino.configYML.getMapList("casino.crates");
-			player.sendMessage("yes");
-
+			boolean foundMatchingCrate = false;
 
 			for (Map<?, ?> item : crates) {
 				String blockName = (String) item.get("block");
@@ -88,10 +87,13 @@ public class casinoAdmin implements CommandExecutor {
 					createLocation.addCCrate(cLoc, args[1]);
 					casinoConfig.casinoLocations.add(cLoc);
 					player.sendMessage(Chat.colored(Casino.configYML.getString("casino.prefix") + "&7Du placerede en crate ved&8: &7x: &a" + cLoc.getX() + " &7y: &a" + cLoc.getY() + " &7z: &a" + cLoc.getZ() + " &8(&a" + cLoc.getWorld().getName() + "&8)"));
-				} else {
-					player.sendMessage(Casino.configYML.getString("casino.prefix") + "&7Du skal kigge på en &ccrate block.");
+					foundMatchingCrate = true;
+					break;
 				}
-				break;
+			}
+
+			if (!foundMatchingCrate) {
+				player.sendMessage(Chat.colored(Casino.configYML.getString("casino.prefix") + "&7Du skal kigge på en &ccrate block."));
 			}
 		}
 		return false;

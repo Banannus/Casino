@@ -1,6 +1,5 @@
 package dk.banannus.utils;
 
-import dk.banannus.Casino;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -16,7 +15,6 @@ public class Config {
 	private final String folderName;
 	private final String fileName;
 
-	public static Casino instance;
 
 	public Config(JavaPlugin instance, String folderName, String fileName) {
 		this.plugin = instance;

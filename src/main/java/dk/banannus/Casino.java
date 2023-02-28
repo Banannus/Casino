@@ -35,11 +35,11 @@ public final class Casino extends JavaPlugin {
 			this.saveResource("data.yml", false);
 		}
 
-		config = new Config(this, (String)null, "config.yml");
+		config = new Config(this, null, "config.yml");
 		configYML = config.getConfig();
 		config.saveConfig();
 
-		data = new Config(this, (String)null, "data.yml");
+		data = new Config(this, null, "data.yml");
 		dataYML = data.getConfig();
 
 		cConfig = new casinoConfig();
@@ -49,8 +49,7 @@ public final class Casino extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-		// Plugin shutdown logic
-		config.saveConfig();
+		config.reloadConfig();
 	}
 
 	public static Casino getInstance() {

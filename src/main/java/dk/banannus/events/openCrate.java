@@ -26,15 +26,20 @@ public class openCrate implements Listener {
 		Location blockLoc = clickedBlock != null ? clickedBlock.getLocation() : null;
 		List<Location> crateLocs = createLocation.getAllLocations();
 		BlockFace blockface = e.getBlockFace();
+		String blockType = String.valueOf(e.getClickedBlock().getType());
 
 		if (blockLoc != null && crateLocs.contains(blockLoc)) {
 			List<Map<?, ?>> crates = Casino.configYML.getMapList("casino.crates");
-			String headTexture = null;
 
+
+			String headTexture = null;
 			for (Map<?, ?> item : crates) {
-				String blockName = (String) item.get("block");
-				headTexture = (String) item.get("head");
-				break;
+				String itemBlockType = (String) item.get("block");
+				assert false;
+				if (blockType.equals(itemBlockType)) {
+					headTexture = (String) item.get("head");
+					break;
+				}
 			}
 
 			if (!openingCrate.contains(player)) {

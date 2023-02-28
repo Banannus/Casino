@@ -5,6 +5,8 @@ import dk.banannus.events.openCrate;
 import dk.banannus.utils.GUI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
@@ -15,19 +17,23 @@ import org.bukkit.util.Vector;
 import xyz.xenondevs.particle.ParticleBuilder;
 import xyz.xenondevs.particle.ParticleEffect;
 
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
+
 
 public class crateAnimation {
 
-	private Location armorStandLoc;
 	public void Animation(Location loc, String head, Player player, BlockFace blockface) {
-		Location startLoc = loc.clone().add(0.5,-0.5,0.5);
-		Location endLoc = startLoc.clone().add(0,2,0);
-		armorStandLoc = loc.add(0.5, -0.5, 0.5);
+
+		// Diverse variabler
+		Location startLoc = loc.clone().add(0.5, 1, 0.5);
+		Location endLoc = startLoc.clone().add(0, 2, 0);
+		Location hologramLoc = loc.clone().add(0.5,-0.75,0.5);
+		World world = player.getWorld();
+		Location armorStandLoc = loc.add(0.5, -0.5, 0.5);
 
 		ItemStack crateHead = GUI.getSkull(head);
 
+		// Spawn armor standen med forskellige værdier
 		ArmorStand stand = loc.getWorld().spawn(loc, ArmorStand.class);
 		stand.setVisible(false);
 		stand.setGravity(false);
@@ -36,6 +42,7 @@ public class crateAnimation {
 		stand.setMarker(false);
 		stand.setMetadata("unstealable", new FixedMetadataValue(Casino.getInstance(), "unstealable"));
 
+		// Tjek hvad retning den skal vende ift. hvor spilleren har klikket
 		double angleY;
 		switch (blockface) {
 			case EAST:
@@ -50,6 +57,8 @@ public class crateAnimation {
 			default:
 				angleY = 0;
 		}
+
+		// Variabler til armor stand rotation og lokation.
 		double rotationRadians = Math.toRadians(angleY);
 		AtomicReference<EulerAngle> rotation = new AtomicReference<>(new EulerAngle(0, rotationRadians, 0));
 
@@ -57,58 +66,77 @@ public class crateAnimation {
 		double x = armorStandLoc.getX();
 		double z = armorStandLoc.getZ();
 
-		long delay = 10L;
-		AtomicLong startTime = new AtomicLong(System.currentTimeMillis());
+		// Delay
+		long delay = 40L;
 
 		new Thread(() -> {
 			int i = 0;
 
+			// Start af animation
 			while (i < 41) {
 
-				y.updateAndGet(v -> (double) (v + 2.0 / 40.0));
+				// Regn rotation osv ud samt teleport og ryk armor standen.
+				y.updateAndGet(v -> (v + 2.0 / 40.0));
 				rotation.updateAndGet(r -> r.setY(r.getY() + Math.toRadians(8.7)));
 				Bukkit.getScheduler().runTaskLater(Casino.getInstance(), () -> {
 					stand.teleport(new Location(loc.getWorld(), x, y.get(), z));
 					stand.setHeadPose(rotation.get());
 				}, 1L);
 
+
+				// Partikler og lyde mens animationen forgår.
+				if (i == 0 || i == 20 || i == 40) {
+					player.playSound(player.getLocation(), Sound.NOTE_PLING, 1f, 1f);
+					Location standLoc = stand.getEyeLocation().clone();
+					new ParticleBuilder(ParticleEffect.ENCHANTMENT_TABLE, standLoc)
+							.setAmount(30)
+							.setOffset(0.5F, 0.5F, 0.5F)
+							.setSpeed(0.05f)
+							.display();
+				}
+
+				// Delay
 				try {
 					Thread.sleep(delay);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 
-				long timePassed = System.currentTimeMillis() - startTime.get();
-				int framesPassed = (int) (timePassed / delay);
-				int framesToSkip = framesPassed - i;
-				if (framesToSkip > 0) {
-					try {
-						Thread.sleep(framesToSkip * delay);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					startTime.set(System.currentTimeMillis() - (framesPassed * delay));
-				}
-
 				i++;
 			}
 
+			// Efter Animation - Partikler -> CrateReward
 			Bukkit.getScheduler().runTaskLater(Casino.getInstance(), () -> {
-				stand.remove();
 				openCrate.resetOpenStatus(player);
-				player.sendMessage(String.valueOf(startLoc));
 
 				Vector direction = endLoc.clone().subtract(startLoc).toVector().normalize();
 
 				double distance = startLoc.distance(endLoc);
 				for (double j = 0; j < distance; j += 0.2) {
 					Location particleLoc = startLoc.clone().add(direction.clone().multiply(j));
-					new ParticleBuilder(ParticleEffect.FLAME, player.getLocation())
+					new ParticleBuilder(ParticleEffect.FLAME, particleLoc)
 							.setOffsetY(1f)
 							.setSpeed(0.1f)
 							.display();
+
 				}
-			}, 20L);
+				try {
+					Thread.sleep(70);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+
+				stand.remove();
+				world.createExplosion(endLoc.getX(), endLoc.getY(), endLoc.getZ(), 1, false, false);
+				new ParticleBuilder(ParticleEffect.SMOKE_NORMAL, endLoc)
+						.setAmount(50)
+						.setOffset(1, 1, 1)
+						.setSpeed(0.05f)
+						.display();
+
+				new crateRewards(player, hologramLoc);
+
+			}, 15L);
 		}).start();
 	}
 }
