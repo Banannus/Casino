@@ -1,10 +1,10 @@
 package dk.banannus;
 
-import dk.banannus.commands.casinoAdmin;
-import dk.banannus.events.armorstandClick;
-import dk.banannus.events.openCrate;
+import dk.banannus.commands.CasinoAdmin;
+import dk.banannus.events.PlayerArmorStandManipulateListener;
+import dk.banannus.events.PlayerInteractListener;
 import dk.banannus.utils.Config;
-import dk.banannus.utils.casinoConfig;
+import dk.banannus.utils.CasinoConfig;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,16 +16,16 @@ public final class Casino extends JavaPlugin {
 	public static FileConfiguration configYML;
 	public static FileConfiguration dataYML;
 	public static Casino instance;
-	public static casinoConfig cConfig;
+	public static CasinoConfig cConfig;
 
 	@Override
 	public void onEnable() {
 
 		instance = this;
 
-		getServer().getPluginManager().registerEvents(new openCrate(), this);
-		getServer().getPluginManager().registerEvents(new armorstandClick(), this);
-		getCommand("ca").setExecutor(new casinoAdmin());
+		getServer().getPluginManager().registerEvents(new PlayerInteractListener(), this);
+		getServer().getPluginManager().registerEvents(new PlayerArmorStandManipulateListener(), this);
+		getCommand("ca").setExecutor(new CasinoAdmin());
 
 		if (!(new File(this.getDataFolder(), "config.yml")).exists()) {
 			this.saveResource("config.yml", false);
@@ -42,7 +42,7 @@ public final class Casino extends JavaPlugin {
 		data = new Config(this, null, "data.yml");
 		dataYML = data.getConfig();
 
-		cConfig = new casinoConfig();
+		cConfig = new CasinoConfig();
 		cConfig.reloadCasinoConfig();
 
 	}

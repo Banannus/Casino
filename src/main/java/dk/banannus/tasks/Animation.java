@@ -1,12 +1,9 @@
 package dk.banannus.tasks;
 
 import dk.banannus.Casino;
-import dk.banannus.events.openCrate;
+import dk.banannus.events.PlayerInteractListener;
 import dk.banannus.utils.GUI;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Sound;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
@@ -20,9 +17,9 @@ import xyz.xenondevs.particle.ParticleEffect;
 import java.util.concurrent.atomic.AtomicReference;
 
 
-public class crateAnimation {
+public class Animation {
 
-	public void Animation(Location loc, String head, Player player, BlockFace blockface) {
+	public void Animation(Location loc, String head, Player player, BlockFace blockface, Material block) {
 
 		// Diverse variabler
 		Location startLoc = loc.clone().add(0.5, 1, 0.5);
@@ -107,7 +104,7 @@ public class crateAnimation {
 
 			// Efter Animation - Partikler -> CrateReward
 			Bukkit.getScheduler().runTaskLater(Casino.getInstance(), () -> {
-				openCrate.resetOpenStatus(player);
+				PlayerInteractListener.resetOpenStatus(player);
 
 				Vector direction = endLoc.clone().subtract(startLoc).toVector().normalize();
 
@@ -134,7 +131,7 @@ public class crateAnimation {
 						.setSpeed(0.05f)
 						.display();
 
-				new crateRewards(player, hologramLoc);
+				new Rewards(player, hologramLoc, block);
 
 			}, 15L);
 		}).start();

@@ -6,7 +6,27 @@ casino:
     - 1:
       block: "ENDER_CHEST"
       head: "http://textures.minecraft.net/texture/588149e56cde02eee620982884b893634756be9141f2e2777b51cb0a66c31dce"
+      rewards:
+        - 1:
+          material: "STONE_AXE"
+          antal: 1
+          chance: 30
+        - 2:
+          material: "STONE_PLATE"
+          antal: 2
+          chance: 70
+
     - 2:
       block: "BEACON"
       head: "http://textures.minecraft.net/texture/de4baa04ba6c1c6baccd9972858dcbbf8a61d773871931319fb3f9b905b46651"
+      rewards:
+        - 1:
+          material: "INK_SAC"
+          antal: 1
+          chance: 30
+        - 2:
+          material: "STONE"
+          antal: 2
+          chance: 70
+
 

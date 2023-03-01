@@ -6,7 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
 
-public class armorstandClick implements Listener {
+public class PlayerArmorStandManipulateListener implements Listener {
 
 	@EventHandler
 	public void onPlayerInteractArmorStand(PlayerArmorStandManipulateEvent event) {

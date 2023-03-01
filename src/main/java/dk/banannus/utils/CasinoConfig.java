@@ -7,10 +7,10 @@ import org.bukkit.World;
 
 import java.util.ArrayList;
 
-public class casinoConfig {
+public class CasinoConfig {
 	public static ArrayList<Location> casinoLocations = new ArrayList<>();
 
-	public casinoConfig() {
+	public CasinoConfig() {
 
 	}
 

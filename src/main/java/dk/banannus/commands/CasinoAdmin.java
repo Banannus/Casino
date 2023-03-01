@@ -2,8 +2,8 @@ package dk.banannus.commands;
 
 import dk.banannus.Casino;
 import dk.banannus.utils.Chat;
-import dk.banannus.utils.casinoConfig;
-import dk.banannus.utils.createLocation;
+import dk.banannus.utils.CasinoConfig;
+import dk.banannus.utils.CreateLocation;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -19,7 +19,7 @@ import java.util.Set;
 import static dk.banannus.Casino.config;
 
 
-public class casinoAdmin implements CommandExecutor {
+public class CasinoAdmin implements CommandExecutor {
 
 
 
@@ -84,8 +84,8 @@ public class casinoAdmin implements CommandExecutor {
 				Material blockType = Material.getMaterial(blockName);
 
 				if (target.getType() == blockType) {
-					createLocation.addCCrate(cLoc, args[1]);
-					casinoConfig.casinoLocations.add(cLoc);
+					CreateLocation.addCCrate(cLoc, args[1]);
+					CasinoConfig.casinoLocations.add(cLoc);
 					player.sendMessage(Chat.colored(Casino.configYML.getString("casino.prefix") + "&7Du placerede en crate ved&8: &7x: &a" + cLoc.getX() + " &7y: &a" + cLoc.getY() + " &7z: &a" + cLoc.getZ() + " &8(&a" + cLoc.getWorld().getName() + "&8)"));
 					foundMatchingCrate = true;
 					break;

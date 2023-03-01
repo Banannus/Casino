@@ -10,7 +10,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class createLocation {
+public class CreateLocation {
 
 	public static void addCCrate(Location loc, String name){
 		Casino.dataYML.set("casino." + name + ".world", loc.getWorld().getName());
