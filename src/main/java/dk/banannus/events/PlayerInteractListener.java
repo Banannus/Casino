@@ -19,6 +19,8 @@ import java.util.Map;
 
 public class PlayerInteractListener implements Listener {
 
+	// TODO: Færdiggør tekst
+	// TODO: ADD CHECKS
 	private static final List<Player> openingCrate = new ArrayList<>();
 
 	@EventHandler
@@ -54,8 +56,13 @@ public class PlayerInteractListener implements Listener {
 						e.setCancelled(true);
 						player.sendMessage("Opening crate");
 						assert blockLoc != null;
-						new Animation().Animation(blockLoc, headTexture, player, blockface, block);
+						new Animation().AnimationCreate(blockLoc, headTexture, player, blockface, block);
 					} else {
+						openingCrate.add(player);
+						e.setCancelled(true);
+						player.sendMessage("Opening crate");
+						assert blockLoc != null;
+						new Animation().AnimationCreate(blockLoc, headTexture, player, blockface, block);
 						player.sendMessage("You are already opening a crate!");
 						e.setCancelled(true);
 					}

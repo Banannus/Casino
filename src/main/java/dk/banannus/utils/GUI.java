@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class GUI {
+
 	public static ItemStack createMaterial(final Material material, final String name, final String... lore) {
 		final ItemStack item = new ItemStack(material, 1);
 		final ItemMeta meta = item.getItemMeta();

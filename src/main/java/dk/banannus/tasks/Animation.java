@@ -1,7 +1,6 @@
 package dk.banannus.tasks;
 
 import dk.banannus.Casino;
-import dk.banannus.events.PlayerInteractListener;
 import dk.banannus.utils.GUI;
 import org.bukkit.*;
 import org.bukkit.block.BlockFace;
@@ -19,12 +18,14 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class Animation {
 
-	public void Animation(Location loc, String head, Player player, BlockFace blockface, Material block) {
+	// TODO: ADD CHECKS
+
+	public void AnimationCreate(Location loc, String head, Player player, BlockFace blockface, Material block) {
 
 		// Diverse variabler
 		Location startLoc = loc.clone().add(0.5, 1, 0.5);
 		Location endLoc = startLoc.clone().add(0, 2, 0);
-		Location hologramLoc = loc.clone().add(0.5,-0.75,0.5);
+		Location hologramLoc = loc.clone().add(0.5,-0.5,0.5);
 		World world = player.getWorld();
 		Location armorStandLoc = loc.add(0.5, -0.5, 0.5);
 
@@ -74,7 +75,7 @@ public class Animation {
 
 				// Regn rotation osv ud samt teleport og ryk armor standen.
 				y.updateAndGet(v -> (v + 2.0 / 40.0));
-				rotation.updateAndGet(r -> r.setY(r.getY() + Math.toRadians(8.7)));
+				rotation.updateAndGet(r -> r.setY(r.getY() + Math.toRadians(8.75)));
 				Bukkit.getScheduler().runTaskLater(Casino.getInstance(), () -> {
 					stand.teleport(new Location(loc.getWorld(), x, y.get(), z));
 					stand.setHeadPose(rotation.get());
@@ -104,7 +105,6 @@ public class Animation {
 
 			// Efter Animation - Partikler -> CrateReward
 			Bukkit.getScheduler().runTaskLater(Casino.getInstance(), () -> {
-				PlayerInteractListener.resetOpenStatus(player);
 
 				Vector direction = endLoc.clone().subtract(startLoc).toVector().normalize();
 

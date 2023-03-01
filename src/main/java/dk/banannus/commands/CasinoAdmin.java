@@ -21,7 +21,9 @@ import static dk.banannus.Casino.config;
 
 public class CasinoAdmin implements CommandExecutor {
 
-
+	// TODO: Command til at sætte items der skal i kisten, med chance og antal.
+	// TODO: Færdiggør øvrige commands
+	// TODO: ADD CHECKS
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
