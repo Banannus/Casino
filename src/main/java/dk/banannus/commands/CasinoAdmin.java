@@ -27,15 +27,16 @@ public class CasinoAdmin implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		String prefix = Casino.configYML.getString("casino.prefix");
 		Player player = (Player) sender;
 		if (!player.hasPermission(Casino.configYML.getString("casino.staff-permission"))) {
-			player.sendMessage(Chat.colored(Casino.configYML.getString("casino.prefix") + "&cDu har ikke adgang til dette."));
+			player.sendMessage(Chat.colored(prefix) + "&cDu har ikke adgang til dette.");
 			return true;
 		}
 
 
 		if (args.length == 0) {
-			player.sendMessage(Casino.configYML.getString("casino.prefix"));
+			player.sendMessage(Chat.colored(prefix));
 			player.sendMessage(Chat.colored("&8┃ &f/ca set/remove/list/reload"));
 			return true;
 		}
@@ -52,29 +53,29 @@ public class CasinoAdmin implements CommandExecutor {
 				success = false;
 			}
 			if (success)
-				sender.sendMessage(Chat.colored(Casino.configYML.getString("casino.prefix") + "&aConfig reloaded."));
+				sender.sendMessage(Chat.colored(prefix) + "&a&CONFIG RELOADED.");
 			if (!success)
-				sender.sendMessage(Chat.colored(Casino.configYML.getString("casino.prefix") + "&cDer opstod en fejl. Tjek din console."));
+				sender.sendMessage(Chat.colored(prefix) + "&cDer opstod en fejl. Tjek din console.");
 		}
 
 		if(args[0].equalsIgnoreCase("set") || args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("list")) {
 			if (args[0].equalsIgnoreCase("set")) {
 				if (args.length == 1) {
-					player.sendMessage(Casino.configYML.getString("casino.prefix"));
+					player.sendMessage(Casino.configYML.getString(prefix));
 					player.sendMessage(Chat.colored("&8┃ &f/ca set <navn>"));
 					return true;
 				}
 			}
 
 			if (Casino.dataYML.contains("casino." + args[1])) {
-				player.sendMessage(Casino.configYML.getString("casino.prefix") + Chat.colored("&cDette navn er allerede i brug!"));
+				player.sendMessage(Chat.colored(prefix) + Chat.colored("&cDette navn er allerede i brug!"));
 				return true;
 			}
 
 			Block target = player.getTargetBlock((Set<Material>) null, 5);
 			Location cLoc = target.getLocation();
 			if (Casino.cConfig.getCasinoLocations().contains(cLoc)) {
-				player.sendMessage(Casino.configYML.getString("casino.prefix") + Chat.colored("&cDenne lokation er allerede i brug!"));
+				player.sendMessage(Chat.colored(prefix) + Chat.colored("&cDenne lokation er allerede i brug!"));
 				return true;
 			}
 
@@ -88,14 +89,14 @@ public class CasinoAdmin implements CommandExecutor {
 				if (target.getType() == blockType) {
 					CreateLocation.addCCrate(cLoc, args[1]);
 					CasinoConfig.casinoLocations.add(cLoc);
-					player.sendMessage(Chat.colored(Casino.configYML.getString("casino.prefix") + "&7Du placerede en crate ved&8: &7x: &a" + cLoc.getX() + " &7y: &a" + cLoc.getY() + " &7z: &a" + cLoc.getZ() + " &8(&a" + cLoc.getWorld().getName() + "&8)"));
+					player.sendMessage(Chat.colored(prefix) + Chat.colored("&7Du placerede en crate ved&8: &7x: &a" + cLoc.getX() + " &7y: &a" + cLoc.getY() + " &7z: &a" + cLoc.getZ() + " &8(&a" + cLoc.getWorld().getName() + "&8)"));
 					foundMatchingCrate = true;
 					break;
 				}
 			}
 
 			if (!foundMatchingCrate) {
-				player.sendMessage(Chat.colored(Casino.configYML.getString("casino.prefix") + "&7Du skal kigge på en &ccrate block."));
+				player.sendMessage(Chat.colored(prefix) + Chat.colored("&cDu skal kigge på en &4crate block!"));
 			}
 		}
 		return false;

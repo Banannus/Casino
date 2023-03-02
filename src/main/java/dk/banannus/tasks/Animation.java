@@ -25,7 +25,7 @@ public class Animation {
 		// Diverse variabler
 		Location startLoc = loc.clone().add(0.5, 1, 0.5);
 		Location endLoc = startLoc.clone().add(0, 2, 0);
-		Location hologramLoc = loc.clone().add(0.5,-0.5,0.5);
+		Location hologramLoc = loc.clone().add(0.5,-0.25,0.5);
 		World world = player.getWorld();
 		Location armorStandLoc = loc.add(0.5, -0.5, 0.5);
 

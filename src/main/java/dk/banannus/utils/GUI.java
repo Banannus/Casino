@@ -64,14 +64,19 @@ public class GUI {
 		return item;
 	}
 
-	public static ItemStack createItemGlass(boolean enabled, Material material, int GlassColor, String displayName, String... loreString) {
+	public static ItemStack createItemGlass(Material material, int GlassColor, String displayName, String... loreString) {
 		List<String> lore = new ArrayList<>();
-		ItemStack item = new ItemStack(material, 1, (short) GlassColor);
+		ItemStack item = new ItemStack(material, 1, (short)GlassColor);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(Chat.colored(displayName));
+		String[] var7;
+		var7 = loreString;
+		int var8 = loreString.length;
 
-		for (String s : loreString)
+		for(int var9 = 0; var9 < var8; ++var9) {
+			String s = var7[var9];
 			lore.add(Chat.colored(s));
+		}
 
 		meta.setLore(lore);
 		item.setItemMeta(meta);

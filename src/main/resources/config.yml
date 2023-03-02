@@ -1,6 +1,14 @@
 casino:
   staff-permission: "op"
-  prefix: "[CASINO]"
+  prefix: "&8&l[ &c&lCASINO &8&l] "
+  lore:
+    - '&7'
+    - '&8┃ &7Chance: &f%chance%%'
+  top_row: "&c"
+  bottom_row: "&f"
+  reward-msg: "&8&l✪ &4&lDU VANDT %item% &8&l✪"
+  crateopen-msg: "&cDu er allerede i gang med at åbne en crate!"
+
 
   crates:
     - 1:
@@ -9,10 +17,20 @@ casino:
       rewards:
         - 1:
           material: "STONE_AXE"
+          guiName: "&cStone axe"
           antal: 1
           chance: 30
         - 2:
           material: "STONE_PLATE"
+          guiName: "&cStone plate"
+          antal: 2
+          chance: 70
+        - 3:
+          material: "WOOL"
+          guiName: "&cRed wool"
+          data: 1
+          enchants:
+            1: "KNOCKBACK 5"
           antal: 2
           chance: 70
 
@@ -21,11 +39,14 @@ casino:
       head: "http://textures.minecraft.net/texture/de4baa04ba6c1c6baccd9972858dcbbf8a61d773871931319fb3f9b905b46651"
       rewards:
         - 1:
-          material: "INK_SAC"
+          material: "INK_SACK"
+          guiName: "&cCUM"
           antal: 1
           chance: 30
+          data: 4
         - 2:
           material: "STONE"
+          guiName: "&cSTONE"
           antal: 2
           chance: 70
 
