@@ -54,6 +54,7 @@ public class Rewards {
 					String material = (String) rewards.get("material");
 					String itemName = (String) rewards.get("guiName");
 					int antal = (int) rewards.get("antal");
+					String antalReward = String.valueOf(antal);
 					int chance = (int) rewards.get("chance");
 					short itemData;
 					if (rewards.containsKey("data")) {
@@ -89,7 +90,8 @@ public class Rewards {
 						}
 						Item item = hologramLoc.getWorld().dropItem(hologramLoc, i);
 						item.setPickupDelay(Integer.MAX_VALUE);
-						hologram.setCustomName(Chat.colored(Casino.configYML.getString("casino.reward-msg").replace("%item%", itemName)));
+						String rewardmsg = Casino.configYML.getString("casino.reward-msg").replace("%item%", itemName).replace("%antal%", antalReward);
+						hologram.setCustomName(Chat.colored(rewardmsg));
 						hologram.setPassenger(item);
 						Location fireworkLoc = hologramLoc.clone().add(0,1,0);
 						shootFirework(fireworkLoc);

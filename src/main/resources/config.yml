@@ -1,13 +1,36 @@
 casino:
-  staff-permission: "op"
-  prefix: "&8&l[ &c&lCASINO &8&l] "
-  lore:
+  staff-permission: "op"                                              # Permission til brug af /ca
+  prefix: "&8&l[ &c&lCASINO &8&l] "                                   # Prefix til at med craten at gøre.
+  lore:                                                               # Lore til items når man vil se hvilke items craten har. Sørg for at have %chance% med.
     - '&7'
     - '&8┃ &7Chance: &f%chance%%'
-  top_row: "&c"
-  bottom_row: "&f"
-  reward-msg: "&8&l✪ &4&lDU VANDT %item% &8&l✪"
-  crateopen-msg: "&cDu er allerede i gang med at åbne en crate!"
+  top_row: "&c"                                                       # Farve på top glas i GUI
+  bottom_row: "&f"                                                    # Farve på bund glas i GUI
+  reward-msg: "&8&l✪ &f&lDU VANDT &c&l%antal%x %item% &8&l✪"          # Hologramet når man får sin præmie.
+  crateopen-msg: "&cDu er allerede i gang med at åbne en crate!"      # Hvis personen allerede er igang med at åbne en crate.
+
+
+  # CRATE DELEN (ALT SKAL VÆRE DER)
+  # ➜ Skal der laves en mere crate skriv -1: (Self følg rækkefølgen i numre)
+  # ➜ Block = Hvilken block cratens skal være. Hvis du ikke har skrevet det rigtige fungere det ikke. (Alt med store bogstaver)
+  # ➜ Head = Hvilket hoved det skal flyve op af kisten.
+
+  # REWARDS DELEN
+  #
+  # DE TING DER SKAL VÆR DER.
+  # ➜ Skal der laves en mere reward skriv -1: (Self følg rækkefølgen i numre)
+  # ➜ material = Skal være der. Hvilken block man der skal bruges til rewarden.
+  # ➜ guiName = Hvad den skal hedde i GUI.
+  # ➜ Antal = Skal være der også selvom du kun skal have 1.
+  #
+  # HVAD DU KAN SÆTTE PÅ
+  # ➜ Data = vil sige f.eks. på en farve uld. Hedder ID'et på den item 35:(14) Dataen er derfor 14.
+  # ➜ Enchants = Du kan add enchants til items, men sørg for at kig på listen for at det er den rigtige.
+  # Når du skal add en enchant skriver du:
+  # enchants:
+  #    1: "KNOCKBACK 5"
+  #    2: "OXYGEN 2"
+  # Navne på enchants kan ses i #crate (Discord kanal) Flere eksempler på hvordan det er gjort neden under.
 
 
   crates:
@@ -17,22 +40,22 @@ casino:
       rewards:
         - 1:
           material: "STONE_AXE"
-          guiName: "&cStone axe"
+          guiName: "&8&lSTEN &f&lØKSE"
           antal: 1
           chance: 30
         - 2:
-          material: "STONE_PLATE"
-          guiName: "&cStone plate"
+          material: "SPONGE"
+          guiName: "&e&lSVAMP"
           antal: 2
-          chance: 70
+          chance: 20
         - 3:
           material: "WOOL"
-          guiName: "&cRed wool"
-          data: 1
+          guiName: "&c&lRED &f&lWOOL"
+          data: 14
           enchants:
             1: "KNOCKBACK 5"
           antal: 2
-          chance: 70
+          chance: 50
 
     - 2:
       block: "BEACON"
@@ -40,13 +63,12 @@ casino:
       rewards:
         - 1:
           material: "INK_SACK"
-          guiName: "&cCUM"
+          guiName: "&8&lBLÆK"
           antal: 1
           chance: 30
-          data: 4
         - 2:
           material: "STONE"
-          guiName: "&cSTONE"
+          guiName: "&7&lSTEN"
           antal: 2
           chance: 70
 
