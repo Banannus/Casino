@@ -18,11 +18,9 @@ import static dk.banannus.events.PlayerInteractListener.resetOpenStatus;
 
 public class Rewards {
 
-	// TODO: ADD CHECKS
 	@SuppressWarnings("unchecked")
 	public Rewards(Player player, Location hologramLoc, Material clickedBlock) {
 
-		// TODO: Gør teksten pæn og add til config.
 		// Hologram
 		ArmorStand hologram = hologramLoc.getWorld().spawn(hologramLoc, ArmorStand.class);
 		hologram.setGravity(false);

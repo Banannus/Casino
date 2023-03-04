@@ -18,7 +18,6 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class Animation {
 
-	// TODO: ADD CHECKS
 
 	public void AnimationCreate(Location loc, String head, Player player, BlockFace blockface, Material block) {
 

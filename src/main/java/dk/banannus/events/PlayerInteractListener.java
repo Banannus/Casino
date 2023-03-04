@@ -30,8 +30,6 @@ import java.util.Map;
 
 public class PlayerInteractListener implements Listener {
 
-	// TODO: Færdiggør tekst
-	// TODO: ADD CHECKS
 	private static final List<Player> openingCrate = new ArrayList<>();
 
 	@EventHandler
